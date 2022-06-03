@@ -1,0 +1,4 @@
+project: PROJECT
+target: ucl_add_string_fuzzer
+cmds:
+- cmd: /out/ucl_add_string_fuzzer
