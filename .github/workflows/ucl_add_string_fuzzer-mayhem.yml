@@ -50,7 +50,8 @@ jobs:
         cache-from: |
           type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:cache-${{ github.sha }}
           type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:cache-${{ github.ref_name }}
-        cache-to: type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:cache-${{ github.sha }},mode=max
+        cache-to: type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME 
+          }}:cache-${{ github.sha }},mode=max
       env:
         SOURCE_DATE_EPOCH: 0
         BUILDX_METADATA_PROVENANCE: max
@@ -68,8 +69,9 @@ jobs:
       uses: forallsecure/mcode-action@long-runs
       with:
         mayhem-token: ${{ secrets.MAYHEM_TOKEN }}
-        args: --image ${{ steps.meta.outputs.tags }} --cmd /out/ucl_add_string_fuzzer
-          --target ucl_add_string_fuzzer --file mayhem/ucl_add_string_fuzzer.mayhemfile
+        args: --image ${{ steps.meta.outputs.tags }} --cmd 
+          /out/ucl_add_string_fuzzer --target ucl_add_string_fuzzer --file 
+          mayhem/ucl_add_string_fuzzer.mayhemfile
         sarif-output: sarif
     - name: Upload SARIF file(s)
       uses: github/codeql-action/upload-sarif@v2
