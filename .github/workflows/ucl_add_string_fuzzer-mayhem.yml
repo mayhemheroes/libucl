@@ -72,8 +72,3 @@ jobs:
         args: --image ${{ steps.meta.outputs.tags }} --cmd 
           /out/ucl_add_string_fuzzer --target ucl_add_string_fuzzer --file 
           mayhem/ucl_add_string_fuzzer.mayhemfile
-        sarif-output: sarif
-    - name: Upload SARIF file(s)
-      uses: github/codeql-action/upload-sarif@v2
-      with:
-        sarif_file: sarif
