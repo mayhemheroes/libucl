@@ -1,3 +1,4 @@
+#!/bin/bash -eu
 # Copyright 2021 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,10 +17,13 @@
 
 cp $SRC/ucl_add_string_fuzzer.options $OUT/
 
-cd libucl 
-./autogen.sh && ./configure
-make
+cd libucl
+mkdir -p build && cd build
+cmake .. -DBUILD_SHARED_LIBS=OFF -DCMAKE_C_COMPILER=$CC -DCMAKE_CXX_COMPILER=$CXX \
+    -DCMAKE_C_FLAGS="$CFLAGS" -DCMAKE_CXX_FLAGS="$CXXFLAGS"
+make -j$(nproc)
 
+cd $SRC/libucl
 $CC $CFLAGS $LIB_FUZZING_ENGINE tests/fuzzers/ucl_add_string_fuzzer.c \
-    -DHAVE_CONFIG_H -I./src -I./include src/.libs/libucl.a -I./ \
+    -I./src -I./include build/libucl.a \
     -o $OUT/ucl_add_string_fuzzer
