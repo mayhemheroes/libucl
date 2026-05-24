@@ -2509,7 +2509,7 @@ ucl_object_pop_keyl(ucl_object_t *top, const char *key, size_t keylen)
 	const ucl_object_t *found;
 
 	if (top == NULL || key == NULL) {
-		return false;
+		return NULL;
 	}
 	found = ucl_object_lookup_len(top, key, keylen);
 
